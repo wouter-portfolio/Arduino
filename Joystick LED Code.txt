@@ -1,0 +1,59 @@
+//defines joystick pins
+const int x_pot = A0;
+const int y_pot = A1;
+
+//defines led pins
+const int right_led = 11;
+const int bot_led = 10;
+const int left_led = 9;
+const int top_led = 8;
+
+void setup()
+{
+  //setup for joystick
+  pinMode(x_pot, INPUT);
+  pinMode(y_pot, INPUT);
+  
+  //setup for leds
+  pinMode(right_led, OUTPUT);
+  pinMode(top_led, OUTPUT);
+  pinMode(left_led, OUTPUT);
+  pinMode(bot_led, OUTPUT);
+}
+
+void loop()
+{
+  //stores the position of the joystick
+  int current_y= analogRead(y_pot);
+  int current_x= analogRead(x_pot);
+    
+  //turns on top led while joystick is up
+  while (current_y > 1000){
+    digitalWrite(top_led, HIGH);
+    current_y= analogRead(y_pot);
+  }
+  digitalWrite(top_led, LOW);
+  
+  //turns on right while joystick is right
+  while (current_x > 1000){
+    digitalWrite(right_led, HIGH);
+    current_x= analogRead(x_pot);
+  }
+  digitalWrite(right_led, LOW);
+  
+  //turns on bottom led while joystick is down
+  while (current_y < 50){
+    digitalWrite(bot_led, HIGH);
+    current_y= analogRead(y_pot);
+  }
+  digitalWrite(bot_led, LOW);
+  
+  //turns on left led while joystick is left
+  while (current_x < 50){
+    digitalWrite(left_led, HIGH);
+    current_x= analogRead(x_pot);
+  }
+  digitalWrite(left_led, LOW);
+
+  delay(100);
+}
